@@ -1,21 +1,20 @@
+from pathlib import Path
 from typing import Any, ClassVar
 
 from rich.console import RenderableType
 from rich.text import Text
-from textual import on
+from textual import events, on
 from textual._two_way_dict import TwoWayDict
 from textual.app import App, ComposeResult
 from textual.binding import Binding, BindingType
-from textual.containers import Grid
+from textual.containers import Grid, Vertical, VerticalScroll
 from textual.screen import ModalScreen
-from textual.widgets import Button, DataTable, Footer, Label, RichLog, Static
+from textual.widgets import Button, DataTable, Footer, Label, Markdown, RichLog, Static
 from textual.widgets.data_table import CellDoesNotExist, RowDoesNotExist, RowKey
 
 from flui.segment import SegmentType
 from flui.settings import Settings
 from flui.subtype import Barcode, BarcodeProcessor, BarcodeSet, BarcodeUpdateKind
-
-from .help_screen import HelpScreen
 
 
 def to_kilos(count: int) -> str:
@@ -68,7 +67,7 @@ class SegmentView(DataTable):
         self.add_column(Text("Gap", justify="center"), width=5, key="gap")
 
     async def update(self, barcode: Barcode, settings: Settings):
-        """Called when the the selection of the barcode has changed."""
+        """Called when the selection of the barcode has changed."""
         self.clear()
         self.border_title = self.segment_type.name
         self.border_subtitle = barcode.key
@@ -105,7 +104,7 @@ class SegmentView(DataTable):
                 if i == 1:
                     gap_style = sc if gap >= settings.minimum_gap else fc
                 else:
-                    # Not interested in the gap afetr the first one.
+                    # Not interested in the gap after the first one.
                     gap_style = "dim"
 
                 gap_text = Text(f"{gap:.3f}", justify="right", style=gap_style)
@@ -327,8 +326,8 @@ class QuitScreen(ModalScreen[bool]):
 UP_DOWN_CHARS = "\u2191\u2193"
 
 
-class Flew(App):
-    TITLE = "Flew Subtyping"
+class FluiApp(App):
+    TITLE = "Flui Subtyping"
     CSS_PATH = "app.scss"
     BINDINGS = [  # noqa: RUF012
         ("h", "help_screen", "Help"),
@@ -415,3 +414,52 @@ class Flew(App):
             bc = self.barcode_set.barcodes[barcode_name]
             await self.ha_view.update(bc, self.settings)
             await self.na_view.update(bc, self.settings)
+
+
+class VerticalSuppressClicks(Vertical):
+    def on_click(self, message: events.Click) -> None:
+        message.stop()
+
+
+class HelpScreen(ModalScreen):
+    # header_text = """
+    #     [bold]Help for Flui[/bold]
+    # """.split()
+
+    def compose(self) -> ComposeResult:
+        markdown_path = Path(__file__).parent / "help.md"
+        with markdown_path.open("r") as f:
+            markdown = f.read()
+
+        with VerticalSuppressClicks(id="help_outer"):
+            # yield Static(" ".join(self.header_text), id="help_header")
+            with VerticalScroll(id="help_inner"):
+                yield Markdown(markdown=markdown)
+            yield Static(
+                "Scroll with arrows. Press any other key to continue.", id="help_footer"
+            )
+
+    def on_mount(self) -> None:
+        container = self.query_one("#help_outer")
+        container.border_title = "Flui Help"
+        self.body = self.query_one("#help_inner")
+
+    def on_key(self, event: events.Key) -> None:
+        event.stop()
+        if event.key == "up":
+            self.body.scroll_up()
+        elif event.key == "down":
+            self.body.scroll_down()
+        elif event.key == "left":
+            self.body.scroll_left()
+        elif event.key == "right":
+            self.body.scroll_right()
+        elif event.key == "pageup":
+            self.body.scroll_page_up()
+        elif event.key == "pagedown":
+            self.body.scroll_page_down()
+        else:
+            self.app.pop_screen()
+
+    def on_click(self) -> None:
+        self.app.pop_screen()

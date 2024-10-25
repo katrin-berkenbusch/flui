@@ -22,7 +22,7 @@ build-backend = "hatchling.build"
 
 [project.scripts]
 flui = "flui:cli.flui_app"
-subtyper = "flui:cli.subtype_app"
+subtype-one = "flui:cli.subtype_app"
 
 [tool.uv]
 dev-dependencies = [
@@ -63,12 +63,6 @@ extend-safe-fixes = [
   "C419",
   # literal-membership
   "PLR6201",
-  # from __future__ import annotations #
-  # ---------------------------------- # 
-  # "UP006",
-  # "UP007",
-  # "UP008",
-  # "TCH",
   # assign exception msg to variable #
   # -------------------------------- #
   "EM101",
@@ -170,10 +164,6 @@ select = [
   "D212",
   # numpy-specific-rules
   "NPY",
-  # Some flake8-annotations
-  # "ANN001",
-  # "ANN002",
-  # "ANN003",
   # unsorted-imports
   "I001",
   # complex-structure

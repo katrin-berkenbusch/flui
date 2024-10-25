@@ -62,12 +62,6 @@ def test_kmers(bases: str):
     assert int_to_kmer(encoded, len(bases)) == bases
 
 
-# @given(sequence_strategy)
-# def test_kmer_sets(bases: str):
-#     ks = KmerSet()
-#     ks.add_kmers(bases.encode("ascii"), 4)
-
-
 def load_fastq(datadir: Path) -> KmerSet:
     ks = KmerSet(size=13)
     with open_as_text(datadir / "sample-reads.fastq.gz") as fd:

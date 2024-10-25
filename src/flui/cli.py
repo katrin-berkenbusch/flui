@@ -11,11 +11,11 @@ from rich.console import Console
 from rich.progress import Progress
 from typer import Option, Typer
 
-from flui.dna import iter_reads, open_as_text
-from flui.segment import SegmentType
-from flui.settings import Settings, SettingsError, get_settings
-from flui.subtype import BarcodeSet, KmerIndexFlu, KmerSet
-from flui.tui.app import Flew
+from .app import FluiApp
+from .dna import iter_reads, open_as_text
+from .segment import SegmentType
+from .settings import Settings, SettingsError, get_settings
+from .subtype import BarcodeSet, KmerIndexFlu, KmerSet
 
 VERSION = version("flui")
 
@@ -92,7 +92,7 @@ def ui(run: FastQDirOpt, ref: FastaFileOpt, dump: ExportCSVOpt = True):
         raise typer.Exit(code=1)  # noqa: B904
 
     barcodes = BarcodeSet.create(root=run, ref_path=ref, ha_size=17, na_size=13)
-    app = Flew(barcodes, settings)
+    app = FluiApp(barcodes, settings)
     app.run()
 
     # Get the current date and time in a specific format
