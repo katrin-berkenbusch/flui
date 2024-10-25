@@ -4,8 +4,11 @@ import gzip
 import lzma
 import string
 from dataclasses import dataclass
-from pathlib import Path
-from typing import TypeAlias, TextIO, Iterator, cast
+from typing import TYPE_CHECKING, TextIO, TypeAlias, cast
+
+if TYPE_CHECKING:
+    from collections.abc import Iterator
+    from pathlib import Path
 
 DNA_LETTERS = "ACGTWSMKRYBDHVN-"
 DNA_LETTERS_BYTES = DNA_LETTERS.encode("ascii")

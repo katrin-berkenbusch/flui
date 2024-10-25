@@ -74,7 +74,9 @@ dev = [
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "pytest-benchmark" },
+    { name = "pytest-datadir" },
     { name = "pytest-sugar" },
+    { name = "syrupy" },
 ]
 
 [package.metadata]
@@ -95,7 +97,9 @@ dev = [
     { name = "pytest", specifier = ">=8.3.3" },
     { name = "pytest-asyncio", specifier = ">=0.24.0" },
     { name = "pytest-benchmark", specifier = ">=4.0.0" },
+    { name = "pytest-datadir", specifier = ">=1.5.0" },
     { name = "pytest-sugar", specifier = ">=1.0.0" },
+    { name = "syrupy", specifier = ">=4.7.2" },
 ]
 
 [[package]]
@@ -336,6 +340,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pytest-datadir"
+version = "1.5.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/aa/97/a93900d82635aa3f419c3cd2059b4de7d7fe44e415eaf00c298854582dcc/pytest-datadir-1.5.0.tar.gz", hash = "sha256:1617ed92f9afda0c877e4eac91904b5f779d24ba8f5e438752e3ae39d8d2ee3f", size = 8821 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7c/90/96b9474cddda5ef9e10e6f1871c0fadfa153b605e0e749ba30437bfb62a0/pytest_datadir-1.5.0-py3-none-any.whl", hash = "sha256:34adf361bcc7b37961bbc1dfa8d25a4829e778bab461703c38a5c50ca9c36dc8", size = 5095 },
+]
+
+[[package]]
 name = "pytest-sugar"
 version = "1.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -406,6 +422,18 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e8/c4/ba2f8066cceb6f23394729afe52f3bf7adec04bf9ed2c820b39e19299111/sortedcontainers-2.4.0.tar.gz", hash = "sha256:25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88", size = 30594 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl", hash = "sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0", size = 29575 },
+]
+
+[[package]]
+name = "syrupy"
+version = "4.7.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/67/81/f46d234fa4ca0edcdeed973bab9acd8f8ac186537cdc850e9e84a00f61a0/syrupy-4.7.2.tar.gz", hash = "sha256:ea45e099f242de1bb53018c238f408a5bb6c82007bc687aefcbeaa0e1c2e935a", size = 49320 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b9/75/57b629fdd256efc58fb045618d603ce0b0f5fcc477f34b758e34423efb99/syrupy-4.7.2-py3-none-any.whl", hash = "sha256:eae7ba6be5aed190237caa93be288e97ca1eec5ca58760e4818972a10c4acc64", size = 49234 },
 ]
 
 [[package]]

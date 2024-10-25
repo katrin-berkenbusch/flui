@@ -131,7 +131,7 @@ def subtype(
     barcode: FastQDirOpt,
     ha_size: int = LOCAL_SETTINGS.ha_kmer_size,
     na_size: int = LOCAL_SETTINGS.na_kmer_size,
-    max_files: Optional[int] = None,  # noqa: UP007
+    max_files: Optional[int] = None,
 ):
     """Find the subtype of a barcode folder."""
     ref = ref.resolve()

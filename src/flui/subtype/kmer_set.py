@@ -5,7 +5,12 @@ import numpy as np
 from pydantic import BaseModel, Field, computed_field
 from scipy.spatial.distance import jensenshannon
 
-from flui.subtype.counting import MAX_KMER_SIZE, MIN_KMER_SIZE, int_to_kmer, numpy_add_kmers
+from flui.subtype.counting import (
+    MAX_KMER_SIZE,
+    MIN_KMER_SIZE,
+    int_to_kmer,
+    numpy_add_kmers,
+)
 
 
 class KmerSet(BaseModel):

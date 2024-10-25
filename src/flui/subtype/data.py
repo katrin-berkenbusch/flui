@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field, computed_field
 from flui.segment import SegmentType
 from flui.settings import Settings, get_settings
 
-from .kmer_index import SegmentMatch, KmerIndexFlu
+from .kmer_index import KmerIndexFlu, SegmentMatch
 from .kmer_set import KmerSet
 
 
