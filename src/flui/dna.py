@@ -7,21 +7,17 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeAlias, TextIO, Iterator, cast
 
-from beartype import beartype
-
 DNA_LETTERS = "ACGTWSMKRYBDHVN-"
 DNA_LETTERS_BYTES = DNA_LETTERS.encode("ascii")
 WHITE_TRANSLATION = str.maketrans("", "", string.whitespace)
 ILLEGAL_TRANSLATION = str.maketrans("", "", DNA_LETTERS)
 
 
-@beartype
 def get_illegal_from_normalized(s: str) -> str:
     """If you remove all the legal letters, you get this."""
     return s.translate(ILLEGAL_TRANSLATION)
 
 
-@beartype
 def normalize_bases(s: str) -> str:
     normed = s.translate(WHITE_TRANSLATION).upper()
 
@@ -34,7 +30,6 @@ def normalize_bases(s: str) -> str:
     return normed
 
 
-@beartype
 @dataclass(frozen=True, slots=True, repr=False)
 class DNAString:
     """A simple DNA string, that has been normalized."""
