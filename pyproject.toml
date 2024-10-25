@@ -35,6 +35,10 @@ dev-dependencies = [
   "syrupy>=4.7.2",
 ]
 
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
 # Linting tools here ------------------------------
 # We use pyright and ruff to check our code
 [tool.pyright]
