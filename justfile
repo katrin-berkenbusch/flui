@@ -6,20 +6,20 @@ default:
 
 # Lint all files
 lint: 
-  ruff check src tests
+  uv run ruff check src tests
 
 typecheck:
   pyright src
 
 test:
-  pytest tests --benchmark-skip -ra
+  uv run pytest tests --benchmark-skip -ra
 
 snap:
-  pytest --snapshot-update
+  uv run pytest --snapshot-update
 
 benchsave:
-  pytest --benchmark-only --benchmark-autosave
+  uv run pytest --benchmark-only --benchmark-autosave
 
 bench:
-  pytest --benchmark-only --benchmark-compare
+  uv run pytest --benchmark-only --benchmark-compare
 
