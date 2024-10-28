@@ -441,7 +441,6 @@ class HelpScreen(ModalScreen):
 
     def on_mount(self) -> None:
         container = self.query_one("#help_outer")
-        container.border_title = "Flui Help"
         self.body = self.query_one("#help_inner")
 
     def on_key(self, event: events.Key) -> None:

@@ -5,7 +5,7 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, ValidationError
 
-TOML_NAME = "flew.toml"
+TOML_NAME = "flui.toml"
 
 
 class Settings(BaseModel):

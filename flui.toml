@@ -1,0 +1,18 @@
+# Configuration file for `flew`
+# These are the same as in the settings.Settings()
+
+# Scoring minimums
+minimum_kmers = 1000
+minimum_score = 6.0
+minimum_gap = 2.5
+
+# Settings for subtyping
+ha_kmer_size = 17
+na_kmer_size = 13
+
+# Number of background workers
+workers = 2
+
+# Colors for the UI
+success_color = "green"
+failure_color = "red"
