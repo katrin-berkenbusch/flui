@@ -422,17 +422,12 @@ class VerticalSuppressClicks(Vertical):
 
 
 class HelpScreen(ModalScreen):
-    # header_text = """
-    #     [bold]Help for Flui[/bold]
-    # """.split()
-
     def compose(self) -> ComposeResult:
         markdown_path = Path(__file__).parent / "help.md"
         with markdown_path.open("r") as f:
             markdown = f.read()
 
         with VerticalSuppressClicks(id="help_outer"):
-            # yield Static(" ".join(self.header_text), id="help_header")
             with VerticalScroll(id="help_inner"):
                 yield Markdown(markdown=markdown)
             yield Static(
@@ -440,7 +435,6 @@ class HelpScreen(ModalScreen):
             )
 
     def on_mount(self) -> None:
-        container = self.query_one("#help_outer")
         self.body = self.query_one("#help_inner")
 
     def on_key(self, event: events.Key) -> None:

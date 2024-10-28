@@ -2,28 +2,32 @@
 default:
   just --list
 
+# Sync the dependencies
+sync:
+  uv sync
+
 # Lint all files
-lint: 
+lint: sync
   uv run ruff check src tests
 
 # Typecheck all files
-typecheck:
+typecheck: sync
   uv run pyright src
 
 # Run all tests
-test:
+test: sync
   uv run pytest tests --benchmark-skip -ra
 
 # Update snapshot tests
-snap:
+snap: sync
   uv run pytest --snapshot-update
 
 # Save current benchmark results
-benchsave:
+benchsave: sync
   uv run pytest --benchmark-only --benchmark-autosave
 
 # Benchmark (and compare)
-bench:
+bench: sync
   uv run pytest --benchmark-only --benchmark-compare
 
 # Run all checks
