@@ -8,9 +8,8 @@ from typing import TypeAlias
 from loguru import logger
 from pydantic import BaseModel, Field
 
-from flui.dna import iter_fasta, open_as_text
+from flui.dna import iter_fasta, open_as_text, SegmentType
 from flui.header import FastaHeader
-from flui.segment import SegmentType
 
 from .kmer_set import KmerSet
 

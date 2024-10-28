@@ -1,7 +1,7 @@
 from datetime import datetime
 from importlib.metadata import version
 from pathlib import Path
-from typing import Annotated, Optional, TypeAlias
+from typing import Annotated, Optional, TypeAlias, Union
 
 import platformdirs
 import typer
@@ -12,8 +12,7 @@ from rich.progress import Progress
 from typer import Option, Typer
 
 from .app import FluiApp
-from .dna import iter_reads, open_as_text
-from .segment import SegmentType
+from .dna import SegmentType, iter_reads, open_as_text
 from .settings import Settings, SettingsError, get_settings
 from .subtype import BarcodeSet, KmerIndexFlu, KmerSet
 
@@ -55,16 +54,10 @@ def init_logging(debug: bool):
 
 init_logging(False)
 
-FLEW_HELP = f"""Flui (v{VERSION})
-
-BLAH BLAH BLAH
-"""
-
 flui_app = Typer(
     add_completion=False,
     no_args_is_help=True,
     rich_markup_mode="rich",
-    help=FLEW_HELP,
 )
 
 FastQDirOpt: TypeAlias = Annotated[
@@ -78,10 +71,16 @@ ExportCSVOpt: TypeAlias = Annotated[
     bool,
     Option(help="Export a CSV file"),
 ]
+WorkerOpt: TypeAlias = Annotated[Union[int, None], Option(min=1, max=5)]
 
 
 @flui_app.command()
-def ui(run: FastQDirOpt, ref: FastaFileOpt, dump: ExportCSVOpt = True):
+def ui(
+    run: FastQDirOpt,
+    ref: FastaFileOpt,
+    dump: ExportCSVOpt = True,
+    workers: WorkerOpt = None,
+):
     """Run the subtyping UI."""
     try:
         settings = get_settings()
@@ -90,6 +89,9 @@ def ui(run: FastQDirOpt, ref: FastaFileOpt, dump: ExportCSVOpt = True):
         for error in e.readable_errors:
             print(f" - {error}")
         raise typer.Exit(code=1)  # noqa: B904
+
+    if workers is not None:
+        settings.workers = workers
 
     barcodes = BarcodeSet.create(root=run, ref_path=ref, ha_size=17, na_size=13)
     app = FluiApp(barcodes, settings)
@@ -133,7 +135,7 @@ def subtype(
     na_size: int = LOCAL_SETTINGS.na_kmer_size,
     max_files: Optional[int] = None,
 ):
-    """Find the subtype of a barcode folder."""
+    """Find the subtype for a single barcode folder."""
     ref = ref.resolve()
     barcode = barcode.resolve()
     print(f"Using reference at `{ref}`")
@@ -164,29 +166,3 @@ def subtype(
 
     print(ha_idx.calc_match(ha_reads))
     print(na_idx.calc_match(na_reads))
-
-
-#
-# @app.command()
-# async def simseq(
-#         src: Path,
-#         dst: Path,
-#         sleep: float = 1.0,
-# ):
-#     """Simulate incoming reads from a reference."""
-#     src = src.resolve()
-#     dst = dst.resolve()
-#
-#     all_reads = list(src.glob("**/*.fastq.gz"))
-#     random.shuffle(all_reads)
-#     for fastq in all_reads:
-#         wait = random.expovariate(1 / sleep)
-#         print(f"waiting {wait}")
-#         await asyncio.sleep(wait)
-#
-#         relative_path = fastq.relative_to(src)
-#         dest = dst / relative_path
-#         dest.parent.mkdir(parents=True, exist_ok=True)
-#         # Copy the file to the destination
-#         shutil.copy2(fastq, dest)
-#         print(f"Copied: {fastq} -> {dest}")

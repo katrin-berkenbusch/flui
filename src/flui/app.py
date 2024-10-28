@@ -12,7 +12,7 @@ from textual.screen import ModalScreen
 from textual.widgets import Button, DataTable, Footer, Label, Markdown, RichLog, Static
 from textual.widgets.data_table import CellDoesNotExist, RowDoesNotExist, RowKey
 
-from flui.segment import SegmentType
+from flui.dna import SegmentType
 from flui.settings import Settings
 from flui.subtype import Barcode, BarcodeProcessor, BarcodeSet, BarcodeUpdateKind
 
@@ -392,7 +392,7 @@ class FluiApp(App):
             return
 
         self.quitting = True
-        self.push_screen(QuitScreen(), check_submit)
+        await self.push_screen(QuitScreen(), check_submit)
 
     async def process_updates(self):
         """Read in any of the completions from background processing."""

@@ -8,7 +8,7 @@ from typing import ClassVar, Self
 from loguru import logger
 from pydantic import BaseModel, Field, computed_field
 
-from flui.segment import SegmentType
+from ..dna import SegmentType
 from flui.settings import Settings, get_settings
 
 from .kmer_index import KmerIndexFlu, SegmentMatch

@@ -6,8 +6,7 @@ from typing import Any, ClassVar, Self
 from loguru import logger
 from pydantic import BaseModel, field_validator
 
-from .dna import iter_fasta, open_as_text
-from .segment import SegmentType, SegmentTypeError
+from .dna import iter_fasta, open_as_text, SegmentTypeError, SegmentType
 
 RE_CLASSIFY_SUBTYPE = re.compile(r"H(?P<ha>\d+)N(?P<na>\d+)")
 

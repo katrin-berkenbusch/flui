@@ -16,7 +16,7 @@ class Settings(BaseModel):
     """
 
     # Number of workers in background reading kmers
-    workers: int = 4
+    workers: int = 2
 
     # -----------------
     # The following values were obtained by assessing several existing runs

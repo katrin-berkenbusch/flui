@@ -3,7 +3,7 @@ import re
 import pytest
 
 from flui.header import RE_SEGMENT, RE_SUBTYPE, FastaHeader, NCBIHeader, NZHeader
-from flui.segment import SegmentType, SegmentTypeError
+from flui.dna import SegmentTypeError, SegmentType
 
 
 def test_segment_type():
