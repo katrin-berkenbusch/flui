@@ -2,6 +2,8 @@
 
 A text-based user interface for sub-typing avian influenza viruses using real-time [Nanopore][nanopore] reads.
 
+![](tui.png)
+
 ## Installation
 
 ### 1. Install a package manager
