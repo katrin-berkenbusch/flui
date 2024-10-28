@@ -5,7 +5,7 @@ import lzma
 import string
 from dataclasses import dataclass
 from enum import IntEnum
-from typing import TYPE_CHECKING, TextIO, TypeAlias, cast, Self
+from typing import TYPE_CHECKING, Self, TextIO, TypeAlias, cast
 
 if TYPE_CHECKING:
     from collections.abc import Iterator

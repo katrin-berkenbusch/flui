@@ -1,6 +1,4 @@
-# set dotenv-load
-
-# Yeah, this is what I can do
+# This is what I can do
 default:
   just --list
 
@@ -8,18 +6,26 @@ default:
 lint: 
   uv run ruff check src tests
 
+# Typecheck all files
 typecheck:
-  pyright src
+  uv run pyright src
 
+# Run all tests
 test:
   uv run pytest tests --benchmark-skip -ra
 
+# Update snapshot tests
 snap:
   uv run pytest --snapshot-update
 
+# Save current benchmark results
 benchsave:
   uv run pytest --benchmark-only --benchmark-autosave
 
+# Benchmark (and compare)
 bench:
   uv run pytest --benchmark-only --benchmark-compare
+
+# Run all checks
+check: lint typecheck test
 

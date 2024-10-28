@@ -79,4 +79,6 @@ just test
 just lint
 ```
 
+At this stage, generating releases is not automated.
+
 [nanopore]: <https://nanoporetech.com/platform/technology>
