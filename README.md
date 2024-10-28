@@ -18,7 +18,7 @@ Please choose one, and follow the installation instructions are on the website b
 
 ### 2. Enable access to the repository
 
-The package is currently, private.
+The package is currently hosted on a private Github repo.
 Thus, you will need to generate an SSH key and add it to your GitHub account.
 See instructions [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 
