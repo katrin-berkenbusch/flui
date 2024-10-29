@@ -2,7 +2,7 @@
 # Flui Help
 
 This application analyses FastQ files from a Nanopore sequencer.
-It produces kmer distributions from the reads to determine the subtype of the Avian Flu virus present in each sample.
+It produces kmer distributions from the FastQ reads to determine the subtype of the Avian Flu virus present in each sample.
 If the kmer distributions match closely enough, the app will assign a subtype for the HA and NA segments.
 Whether this gets assigned depends on three thresholds:
 
@@ -15,7 +15,7 @@ Whether this gets assigned depends on three thresholds:
 There are two ways that the app discovers FastQ files to process. When you start the application, you provide it with a parent folder and it will process:
 
 1. **Pre-existing FastQ Files**: Any FASTQ files in sub-folders (however deep) that match the Nanopore naming conventions. These will be processed in random order.
-2. **Incoming FastQ Files**: While the application is running
+2. **Incoming FastQ Files**: While the application is running,
      the app will monitor any subfolders for new FASTQ files that are placed there (by the Nanopore software as it processes the reads). These will be processed in the order they arrive.
 
 Each time a new FASTQ file for a particular barcode is processed, the scores and reads for that barcode are updated. This happens in the background, so the effect may not be immediately seen.
@@ -40,7 +40,7 @@ The interface contains five panes:
 The Flui application has several settings that can be changed, either at startup, or in a settings file.
 The settings file must be called `flui.toml` and stored in the working directory.
 Here you can set the kmer sizes, and the number of workers, and some UI colour options.
-See the Github repository for an [example file](https://github.com/dragonfly-science/flui/blob/main/flui.toml).
+See the GitHub repository for an [example file](https://github.com/dragonfly-science/flui/blob/main/flui.toml).
 Some settings can also be set on the command line (use `flui --help` to see these).
 
 ## Scoring and Subtype Assignment
