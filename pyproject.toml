@@ -1,6 +1,6 @@
 [project]
 name = "flui"
-version = "1.0.1"
+version = "1.0.2"
 description = "TUI for online sub-typing of Avian Flu"
 readme = "README.md"
 authors = [{ name = "Brett Calcott", email = "brett@dragonfly.co.nz" }]
@@ -33,10 +33,6 @@ dev-dependencies = [
   "syrupy>=4.7.2",
   "hypothesis>=6.115.5",
 ]
-
-[tool.pytest.ini_options]
-asyncio_mode = "auto"
-asyncio_default_fixture_loop_scope = "function"
 
 # Linting tools here ------------------------------
 # We use pyright and ruff to check our code

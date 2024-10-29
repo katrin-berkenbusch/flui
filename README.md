@@ -90,6 +90,22 @@ Typically, you will want to run a command like this:
 flui --ref ref.fasta --run /path/to/fastq/files
 ```
 
+### Test driving
+
+If you want to test drive the app:
+
+* Download the sample reference file [here][sample_ref] (created using the [NCBI virus data][ncbi]).
+* Download sample FastQ from [this paper][sample_fastq].
+
+Once you have downloaded these you should unzip the fastq downloads into a folder and then:
+
+```sh
+flui --ref reference-ncbi.fasta --run /folder/with/fastq
+```
+
+
+### Navigating the Application
+
 Once you have started the application, you can navigate around using the arrow keys and tab keys.
 Detailed help about all is available inside the `flui` application.
 Simply press the “h” button after starting the application.
@@ -119,3 +135,6 @@ just check
 At this stage, generating releases is not automated.
 
 [nanopore]: <https://nanoporetech.com/platform/technology>
+[ncbi]: https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/virus?SeqType_s=Nucleotide
+[sample_ref]: https://github.com/dragonfly-science/flui/blob/main/sample/reference-ncbi.fasta
+[sample_fastq]: https://www.sciencebase.gov/catalog/item/638a4df0d34ed907bf7907ea
