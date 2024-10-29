@@ -54,6 +54,7 @@ def init_logging(debug: bool):
 
 init_logging(False)
 
+
 flui_app = Typer(
     add_completion=False,
     no_args_is_help=True,
@@ -114,6 +115,13 @@ def ui(
 
     print("Shutting down processes...")
 
+
+# Prepend the version
+ui.__doc__ = f"""
+    [bold]FLUI v{VERSION}[/bold]
+
+     {ui.__doc__}
+"""
 
 subtype_app = Typer(
     add_completion=False,
