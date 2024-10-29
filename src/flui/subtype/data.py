@@ -30,8 +30,8 @@ class Reads(BaseModel):
         ^(?P<flow_cell_id>[^_]+)_
         (?P<status>pass|fail)_
         barcode(?P<barcode_id>\d{2})_
-        (?P<xxx_id>[a-f0-9]+)_
-        (?P<run_id>[a-f0-9]+)_
+        (?P<xxx_id>[a-f0-9]{8})?_?
+        (?P<run_id>[a-f0-9]{8})_
         (?P<file_index>\d+)
         \.fastq\.gz$
         """,
@@ -289,11 +289,11 @@ class BarcodeSet(BaseModel):
 class JsonSummary(BaseModel):
     """A summary of the barcode set."""
 
-    avian_flu_version: str
+    flui_version: str
     when: datetime
     where: str
 
     @classmethod
     def from_barcode_set(cls, when: datetime, barcode: BarcodeSet) -> Self:
         where = barcode.root.as_posix()
-        return cls(where=where, when=when, avian_flu_version=version("avian_flu"))
+        return cls(where=where, when=when, flui_version=version("flui"))
