@@ -339,6 +339,7 @@ class FluiApp(App):
         ("k", "sort_by('ha_kmers')", UP_DOWN_CHARS + "HA-Kmers"),
         ("K", "sort_by('na_kmers')", UP_DOWN_CHARS + "NA-Kmers"),
     ]
+    ENABLE_COMMAND_PALETTE = False
 
     def __init__(self, barcode_set: BarcodeSet, settings: Settings):
         super().__init__()
