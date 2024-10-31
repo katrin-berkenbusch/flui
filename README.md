@@ -45,13 +45,13 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 From a downloaded zip-file release (where x.x.x is the version downloaded):
 
 ```sh
-uv tool install --from /path/to/zipfile/flui-x.x.x.zip flui
+uv tool install --from /path/to/zipfile/flui-x.x.x.zip flui --python 3.11
 ```
 
 Directly from Github:
 
 ```sh
-uv tool install --from git+ssh://git@github.com/dragonfly-science/flui.git@main flui
+uv tool install --from git+ssh://git@github.com/dragonfly-science/flui.git@main flui --python 3.11
 ```
 
 You should now be able to run `flui --help`
