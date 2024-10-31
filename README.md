@@ -6,34 +6,41 @@ A text-based user interface for sub-typing avian influenza viruses using real-ti
 
 ## Installation
 
-> NOTE: If you want to *develop*, rather than simply run `flui`, then see the section below for different installation instructions.
+> :warning: If you want to *develop*, rather than simply run `flui`, then see the section below for additional installation instructions.
 
 ### 1. Ensure you have access to the `flui` package
 
-The software is currently hosted on a private GitHub repo.
+The software is hosted on a private GitHub repo.
 You will need access rights to this repository to get the software.
 
-The simplest way to get access to the package is by downloading a zip file from the
-[releases page](https://github.com/dragonfly-science/flui/releases).
-This method also allows you to provide the package to others (via email, for example).
+The simplest way to get access to the package is by downloading a zip file from the [releases page](https://github.com/dragonfly-science/flui/releases).
+You can also forward the zipfile to others who don't have access.
 
 Alternatively, you can install the package directly from GitHub.
-You will will need to generate an SSH key that you have uploaded to GitHub.
+You will need to generate an SSH key that you have uploaded to GitHub.
 See instructions [here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 
-### 2. Install a package manager
+### 2. Install UV
 
-`flui` is a python package, and there are many ways to install python programs.
-Below, we show two ways to install the package that are easy and ensure a correct installation.
+`flui` is a python package.
+There are many ways to install python packages, and most of them are complex.
+[uv][uv] is a tool that simplifies the installation of python packages, and it is the recommended way to install `flui`.
 
-**Option 1: UV**
+Installation on MacOS and Unix:
 
-[uv](https://docs.astral.sh/uv/) is the simplest option,
-as it also installs the python version required for you.
-It will work on Windows, MacOS, and Unix.
-Follow the installation instructions from the website (which differ depending on your platform).
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-Then do one of the following:
+For Windows:
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+### 3. Install the package using UV
+
+> :warning: If you are operating behind a corporate firewall, you may need to add the `--native-tls` flag to the following commands.
 
 From a downloaded zip-file release (where x.x.x is the version downloaded):
 
@@ -48,32 +55,6 @@ uv tool install --from git+ssh://git@github.com/dragonfly-science/flui.git@main 
 ```
 
 You should now be able to run `flui --help`
-
-**Option 2: Pipx**
-
-[Pipx](https://pipx.pypa.io/stable/) may be suitable for older systems (such as NESI, at the moment).
-It requires the correct version of python (3.11) to be pre-installed.
-Here is how to install the application using `pipx` on `NESI` (as of October 2024).
-
-Activate python 3.11 and install pipx.
-
-```sh
-module load Python/3.11.6-foss-2023a
-pip install pipx
-```
-
-Then use pipx to install the application (force overwrites any previous version).
-From a download:
-
-```sh
-pipx install /path/to/download/flui-x.x.x.zip --force
-```
-
-Or from Github:
-
-```sh
-pipx install git+ssh://git@github.com/dragonfly-science/avian-flu.git@main --force
-```
 
 ## Usage
 
@@ -97,12 +78,11 @@ If you want to test drive the app:
 * Download the sample reference file [here][sample_ref] (created using the [NCBI virus data][ncbi]).
 * Download sample FastQ from [this paper][sample_fastq].
 
-Once you have downloaded these you should unzip the fastq downloads into a folder and then:
+Once you have downloaded these you should unzip the FastQ downloads into a folder and then:
 
 ```sh
 flui --ref reference-ncbi.fasta --run /folder/with/fastq
 ```
-
 
 ### Navigating the Application
 
@@ -115,8 +95,8 @@ You can also read it here: [help](src/flui/help.md).
 
 For development, you’ll need to install the following dependencies:
 
-* [uv](https://docs.astral.sh/uv/)
-* [just](https://github.com/casey/just)
+* [uv][uv]
+* [just][just]
 
 Once `uv` is installed, you can use it to install some additional tools:
 
@@ -138,3 +118,5 @@ At this stage, generating releases is not automated.
 [ncbi]: https://www.ncbi.nlm.nih.gov/labs/virus/vssi/#/virus?SeqType_s=Nucleotide
 [sample_ref]: https://github.com/dragonfly-science/flui/blob/main/sample/reference-ncbi.fasta
 [sample_fastq]: https://www.sciencebase.gov/catalog/item/638a4df0d34ed907bf7907ea
+[uv]: https://docs.astral.sh/uv/
+[just]: https://github.com/casey/just
