@@ -11,23 +11,12 @@ Screen {
 }
 
 SettingsView {
-  /* tint: pink 20%;*/
-  border-title-color: pink;
   border-title-style: bold;
 }
 
 BarcodeView {
   height: 100%;
 
-  & .datatable--cursor {
-    color: auto;
-    background: yellow;
-  }
-
-  & .datatable--header {
-    color: gray;
-    background: white;
-  }
 
 }
 
@@ -37,16 +26,7 @@ EventView {
 
 SegmentView {
   scrollbar-size-vertical: 1;
-  border-title-color: yellow;
-  border-title-style: bold;
-  border-subtitle-color: white;
-  border-subtitle-style: bold;
   height: 100%;
-
-  & .datatable--header {
-    color: gray;
-    background: white;
-  }
 }
 
 

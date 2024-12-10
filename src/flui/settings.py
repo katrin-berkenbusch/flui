@@ -36,6 +36,8 @@ class Settings(BaseModel):
     # Kmer size to use for NA segment.
     na_kmer_size: int = 13
 
+    # Default theme and colors
+    theme: str = "textual-dark"
     success_color: str = "green"
     failure_color: str = "red"
 
