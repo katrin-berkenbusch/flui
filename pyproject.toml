@@ -1,6 +1,6 @@
 [project]
 name = "flui"
-version = "1.0.2"
+version = "1.0.4"
 description = "TUI for online sub-typing of Avian Flu"
 readme = "README.md"
 authors = [{ name = "Brett Calcott", email = "brett@dragonfly.co.nz" }]
