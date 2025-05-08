@@ -16,7 +16,7 @@ from .dna import SegmentType, iter_reads, open_as_text
 from .settings import Settings, SettingsError, get_settings
 from .subtype import BarcodeSet, KmerIndexFlu, KmerSet
 
-VERSION = version("flui")
+VERSION = version("flui-tui")
 
 
 # https://github.com/Textualize/rich/issues/2416#issuecomment-1193773381
