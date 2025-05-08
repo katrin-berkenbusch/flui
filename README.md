@@ -24,7 +24,7 @@ To install `uv`, please follow the instructions from the [UV website][uv-install
 Once you gave `uv` installed, you can install `flui` with a single command:
 
 ```sh
-uv tool install flui
+uv tool install flui-tui
 ```
 
 You should now be able to run `flui --help`
