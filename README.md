@@ -151,7 +151,7 @@ and [Ruy Jauregui][ruy] from [Biosecurity New Zealand][mpi].
 Ruy managed reference development, sequence analysis, testing, and provided all bioinformatic guidance.
 Brett was responsible for algorithm design and coding.
 
-The project was funded by the [Biosecurity New Zealand
+The project was funded by [Biosecurity New Zealand
 -- Tiakitanga Putaiao Aotearoa][mpi].
 
 ## License and copyright
