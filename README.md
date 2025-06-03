@@ -2,9 +2,9 @@
 
 Flui is a command-line tool for **rapidly sub-typing avian influenza** viruses without doing full assemblies.
 
-* Flui **identifies the HA and NA segments** of a virus from [Nanopore][nanopore] [FASTQ][fastq] files using kmer-based methods.
+* Flui **identifies the HA and NA segments** of a virus from [Nanopore][nanopore] [FASTQ][fastq] files using k-mer-based methods.
 * Flui works with existing FASTQ files, but it can also monitor a folder for incoming FASTQ files, **providing real-time updates for an ongoing sequence run**.
-* Flui runs in a terminal on any common platform, from your **Windows laptop to an SSH shell** on an HPC cluster.
+* Flui runs in a terminal on any common platform, from a **Windows laptop to an SSH shell** on an HPC cluster.
 * Flui has an **interactive user-interface** (TUI), showing continuous progress of the analysis.
 * Flui uses a **simple, but robust metric**, to assign the subtype of the virus.
 
@@ -26,7 +26,6 @@ Once you have `uv` installed, you can install `flui` with a single command:
 ```sh
 uv tool install flui-tui
 ```
-
 You should now be able to run `flui --help`
 
 ### Alternative installation methods
@@ -54,70 +53,72 @@ flui --ref ref.fasta --run /path/to/fastq/files
 ## Test-driving for the impatient
 
 Flui requires FastQ files from a Nanopore sequencing run, and a reference FASTA file.
-If you don't have access to both of these files, then you can try Flui  this way:
+If you don't have access to both of these files, then you can try Flui this way:
 
 * Download the sample reference file [here][sample_ref] (created using the [NCBI virus data][ncbi]).
 * Download sample FastQ files for avian influenza from [this paper][sample_fastq].
-  See the attached files section, and choose one or more of the zip files.
+  See the “attached files section“, and choose one or more of the zip files.
   Unzip the FastQ files into folders.
 
-Once you have downloaded these files, unzip the FastQ downloads into a folder and then use the following command:
+Once you have downloaded these files, unzip the FastQ downloads into a folder and then run the command:
 
 ```sh
 flui --ref reference-ncbi.fasta --run /folder/with/fastq
 ```
 
-After a few moments, you should see the application start up and begin processing any existing FastQ files.
+After a few moments, you will see the application start up and begin processing any existing FastQ files.
 
 ## Navigating the application
 
 Once you have started the application, you can navigate using the arrow keys and tab keys.
 Detailed help is available inside the `flui` application.
 Simply press the “h” button after starting the application.
-You can also read it here: [help](src/flui/help.md).
+You can also read detailed help information here: [help](src/flui/help.md).
 
 ## Saving results
 
 Flui saves the results of the analysis to both a CSV and a JSON file when it exits.
 It saves the current state of the analysis, including the scores and the reads.
-Note, that this state is saved *even if the analysis is incomplete*.
-The files are saving in the current folder with date and time suffixes to prevent overwriting any existing files.
 
-> :point_right: to avoid saving these files, start Flui with the `--no-dump` option.
+(Note that this information is saved *even if the analysis is incomplete*.)
+The files are saved in the current folder with date and time suffixes to prevent overwriting any existing files.
+
+> :point_right: To avoid saving these files, start Flui with the `--no-dump` option.
 
 ## Configuration
 
 The Flui app has several settings that can be changed, either at startup, or in a settings file.
 The settings file must be called `flui.toml` and stored in the working directory.
-Here, you can set the k-mer sizes, and the number of workers, and some UI colour options.
+
+In the settings file, you can set the k-mer sizes, the number of background processes for the analysis, and some UI colour options.
+
 See the GitHub repository for an [example file][config].
 Some settings can also be set on the command line (use `flui --help` to see these settings).
 The settings are shown in the UI on the bottom right.
 
 ## How does it work?
 
-Here is brief overview of how Flui produces the scores for automatic sub-typing.
+Here is a brief overview of how Flui produces the scores for automatic sub-typing.
 
-1. The `--ref` argument given on the command-line points to a [FASTA][fasta] file.
+1. The `--ref` argument given on the command line points to a [FASTA][fasta] file.
    This FASTA file contains the multiple reference sequences for each of the different subtypes (e.g., H1N1, H5N2).
    These sequences have both the subtype and segment number or type in the sequence header (i.e., HA/H1N1).
-   Only the HA and NA segments are used for sub-typing (other segments are not included).
-2. When Flui starts, it reads the FASTA file and, for each segment/subtype combination, it generates a k-mer distribution.
+   Only the HA and NA segments are used for sub-typing (others are not included).
+2. When Flui starts, it reads the FASTA file and, for each segment/subtype  combination, it generates a k-mer distribution. 
    These distributions are stored in memory.
-3. Flui then reads in any existing FastQ files in the folder and, for each read, produces a k-mer distribution.
-   These k-mer distributions are per run/barcode (this information is available from the file name).
-   As more reads come in, we update the distribution for that run/barcode.
-4. For each barcode distribution, we compare it to our set of reference distributions, and measure the *Jensen-Shannon Distance* (JSD) to each reference’s distribution.
-   (The JSD is the square root of the [Jensen-Shannon Divergence][shannon], and is a proper [distance measure][metric]).
-   The more the k-mer distributions resemble each other, the lower the JSD value.
-5. We transform the JSD, to make it easier to interpret.
-   First, we normalise it by dividing by the average JSD between all reference distributions.
-   Call this the JSD*N*.
-   Good matches will have JSDN values that fall below 1.0 (i.e. they are smaller than the distances between the references).
-   To make this easier to interpret, we then take the complement of this value and multiply by 100: Matching Score = (1 - JSDN) \* 100.
-6. The scores given in the UI are thus a *percentage reduction from expected kmer distribution distance*.
-   Bigger values are better.
-   Empirical tests show values of around 6.0 and above as typical for a good match.
+3. Flui then reads in any existing FastQ files in the folder and, for each read, it produces a k-mer distribution.
+   These k-mer distributions are per run/barcode (this information is from the file name).
+   As more reads are completed, the distribution for that run/barcode is updated.
+4. Each barcode distribution is compared to the set of reference distributions, including a measure of the *Jensen-Shannon Distance* (JSD) to each reference’s distribution.
+   (The JSD is the square root of the [Jensen-Shannon Divergence][shannon], and is a statistical [distance measure][metric]).
+   A small JSD value (i.e., close to zero) indicates close resemblance of the k-mer distributions.  
+5. The JSD is transformed to make it easier to interpret.
+   First, it is normalised by dividing the average JSD value between all reference distributions.
+   This value is called JSDN.
+   Close matches have JSDN values below 1.0 (i.e., the distances between the distributions are smaller than the distances between the references).
+   To make this number easier to interpret, the complement of this value is multiplied by 100: Matching Score = (1 - JSDN) × 100.
+6. The scores given in the UI are thus a *percentage reduction from the expected k-mer distribution distance*.
+   Empirical tests indicate that values of around 6.0 and higher are typical for a close match.
 
 ## Development
 
